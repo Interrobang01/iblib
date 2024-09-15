@@ -1,6 +1,11 @@
-# IBLIB
+# iblib
 
 Iblib (short for Interrobang's Library) is a library of mostly-side-effect-less Simulo functions that you can use in whatever you want.
+
+To download this package run
+```
+@interrobang/iblib;https://github.com/Interrobang01/iblib.git
+```
 
 To get started, do
 ```
