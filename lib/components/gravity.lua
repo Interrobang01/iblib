@@ -1,6 +1,8 @@
 local self_mass = self:get_mass()
 local self_guid = self.guid
 local should_apply_reaction = true
+local last_force = 0
+local last_distance = 0
 
 function on_event(id, data)
     if id == "@interrobang/iblib/gravity_ping" then
@@ -9,6 +11,12 @@ function on_event(id, data)
     if id == "@interrobang/iblib/gravity_return_ping" then
         should_apply_reaction = false
     end
+    if id == "@interrobang/iblib/send_to_orbit" then
+        local normalized_force = last_force:normalize()
+        local rotated_normal = vec2(normalized_force.y,normalized_force.x * -1)
+        local magnitude = math.sqrt(last_force:magnitude()*last_distance/self_mass)
+        self:set_linear_velocity(rotated_normal * magnitude)
+    end
 end
 
 function on_step()
@@ -16,7 +24,7 @@ function on_step()
     local self_position = self:get_position()
     local surroundings = Scene:get_objects_in_circle{
         position = self_position,
-        radius = 250,
+        radius = 2500,
     }
     for i = 1, #surroundings do
         local obj = surroundings[i]
@@ -33,6 +41,9 @@ function on_step()
                 obj:apply_force_to_center(force)
             end
             self:apply_force_to_center(-force)
+
+            last_force = force
+            last_distance = distance
 
             should_apply_reaction = true
         end
