@@ -1,3 +1,13 @@
+--[[
+Given three points, returns a table with the table.position, table.size, and table.rotation values needed to make a box with two corners at the first two points and extending to the third.
+INPUTS:
+- vec2, one corner of the box
+- vec2, an adjacent corners of the box
+- vec2, the point the box should extend to, from the first 2 points
+OUTPUTS:
+- a table containing the following indexes: position, size, rotation
+--]]
+
 local function tripoint_box(line_start,line_end,line_extension)
 
     -- declaring functions might be inefficient but uhhhh shut up it's a stylistic choice

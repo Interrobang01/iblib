@@ -1,6 +1,10 @@
 --[[
 example usage:
 local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
+INPUTS:
+- string, the name of the iblib lib you want to load
+OUTPUTS:
+- string or function, the function or component you wanted
 --]]
 
 local function iblib(name)

@@ -1,3 +1,9 @@
+--[[
+Given the name of an iblib component, creates a box with that component at (0,0) for testing purposes.
+INPUTS:
+- string, the name of the iblib component to test
+--]]
+
 local function iblib_test_component(name)
     local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
     local initialize_component = iblib("initialize_component")

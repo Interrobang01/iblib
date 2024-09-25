@@ -1,5 +1,9 @@
 --[[
 Takes in a component code string, initializes the component with a filler name, id, and version, and returns the hash.
+INPUTS:
+- string, the component code
+OUTPUTS:
+- string, the component hash (for :add_component())
 --]]
 
 local function iblib_initialize_component(code)
