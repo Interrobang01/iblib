@@ -1,5 +1,6 @@
 --[[
 Given the name of an iblib component, creates a box with that component at (0,0) for testing purposes.
+
 INPUTS:
 - string, the name of the iblib component to test
 --]]

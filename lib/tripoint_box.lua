@@ -1,9 +1,11 @@
 --[[
 Given three points, returns a table with the table.position, table.size, and table.rotation values needed to make a box with two corners at the first two points and extending to the third.
+
 INPUTS:
 - vec2, one corner of the box
 - vec2, an adjacent corners of the box
 - vec2, the point the box should extend to, from the first 2 points
+
 OUTPUTS:
 - a table containing the following indexes: position, size, rotation
 --]]

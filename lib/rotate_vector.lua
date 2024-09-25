@@ -1,8 +1,10 @@
 --[[
 Rotates a vector by an angle in radians.
+
 INPUTS:
 - vec2, the vector to rotate
 - number, the radians to rotate by
+
 OUTPUTS:
 - vec2, the rotated vector
 --]]

@@ -1,5 +1,6 @@
 --[[
 Given a point and a table of points representing a polygon, returns whether the point is inside that polygon.
+
 INPUTS:
 - vec2, the point you want to test
 - table of vec2 values, the polygon you want to test. Adjacent values are assumed to be connected.

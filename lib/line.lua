@@ -1,9 +1,11 @@
 --[[
 Given a line start, a line end, and an optional thickness, returns a table containing the table.position, table.size, and table.rotation values needed to make a line going between the line start and line end.
+
 INPUTS:
 - vec2, the start of the line
 - vec2, the end of the line
 - number, the thickness of the line (optional, default 0.1)
+
 OUTPUTS:
 - a table containing the following indexes: position, size, rotation
 --]]
