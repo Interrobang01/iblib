@@ -15,7 +15,6 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Check Directory
-      working-directory: src/webclient
       run: |
         ls
 
@@ -25,9 +24,7 @@ jobs:
         python-version: '3.8'  # Change to your required Python version
 
     - name: Run documentation script
-      working-directory: src/webclient
       run: |
-      
         python documenation_generation/generate_documentation.py
 
     - name: Commit changes
