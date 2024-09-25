@@ -19,11 +19,6 @@ jobs:
       with:
         python-version: '3.8'  # Change to your required Python version
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r documenation_generation/requirements.txt
-
     - name: Run documentation script
       run: |
         python documenation_generation/generate_documentation.py
