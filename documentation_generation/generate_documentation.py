@@ -2,15 +2,19 @@ import os
 
 os.chdir("..")
 
+print(os.listdir("/"))
+
 def process_files_in_directory(directory):
     string = ""
     for root, _, files in os.walk(directory):
         for filename in files:
+            print("Trying "+filename+"...")
             file_path = os.path.join(root, filename)
             try:
                 with open(file_path, 'r', encoding='utf-8') as file:
                     file_content = file.read()
                     string = string + extract_substring(file_content)
+                print("Success")
             except Exception as e:
                 print(f"Error processing file {file_path}: {e}")
     return string
