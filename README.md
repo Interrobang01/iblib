@@ -21,14 +21,9 @@ If that function is a component, it will return a string containing that compone
 example usage:
 local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
 
-### test_component
-### rotate_vector
-### tripoint_box
 ### initialize_component
 Takes in a component code string, initializes the component with a filler name, id, and version, and returns the hash.
 
-### line
-### is_point_in_polygon
 ### antigravity (component)
 Makes the object maintain its vertical position by setting its velocity to the difference between the desired y value and the current y value.
 
