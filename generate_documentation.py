@@ -37,7 +37,7 @@ def extract_substring(s):
     return None  # Return None if markers are not found
 
 documentation = process_files_in_directory(r"lib")
-readme_template_file = open(r"README-template.txt", "r")
+readme_template_file = open(r"README_template.txt", "r")
 readme_template = readme_template_file.read()
 file_object = open(r"README.md", "w")
 file_object.write(readme_template + documentation)
