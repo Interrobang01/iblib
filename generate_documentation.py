@@ -13,7 +13,7 @@ def process_files_in_directory(directory):
                 with open(file_path, 'r', encoding='utf-8') as file:
                     file_content = file.read()
                     if file_content != None:
-                        string = string + "\n## " + filename + "\n" + extract_substring(file_content) + "\n"
+                        string = string + "\n## " + filename.split(".")[0] + "\n" + extract_substring(file_content) + "\n"
                 print("Success")
             except Exception as e:
                 print(f"Error processing file {file_path}: {e}")
