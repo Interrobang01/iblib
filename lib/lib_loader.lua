@@ -1,4 +1,7 @@
--- local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
+--[[
+example usage:
+local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
+--]]
 
 local function iblib(name)
     local is_component = false
