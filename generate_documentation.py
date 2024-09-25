@@ -1,8 +1,7 @@
 import os
 
-os.chdir("..")
 
-print(os.listdir("/"))
+print(os.listdir())
 
 def process_files_in_directory(directory):
     string = ""
