@@ -1,3 +1,8 @@
+--[[
+Makes the object attract other objects.
+If you send the "@interrobang/iblib/send_to_orbit" event to an object with this component, it will be sent to orbit except that's actually broken right now so nevermind
+--]]
+
 local self_mass = self:get_mass()
 local self_guid = self.guid
 local should_apply_reaction = true

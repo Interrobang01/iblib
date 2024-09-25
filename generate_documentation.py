@@ -12,7 +12,11 @@ def process_files_in_directory(directory):
             try:
                 with open(file_path, 'r', encoding='utf-8') as file:
                     file_content = file.read()
-                    string = string + extract_substring(file_content)
+                    if file_content != None:
+                        string = string + "/n"
+                        string = string + "## " + filename
+                        string = string + extract_substring(file_content)
+                        string = string + "/n"
                 print("Success")
             except Exception as e:
                 print(f"Error processing file {file_path}: {e}")
@@ -33,6 +37,8 @@ def extract_substring(s):
     return None  # Return None if markers are not found
 
 documentation = process_files_in_directory(r"lib")
+readme_template_file = open(r"README-template.txt", "r")
+readme_template = readme_template_file.read()
 file_object = open(r"README.md", "w")
-file_object.write(documentation)
+file_object.write(readme_template + documentation)
 file_object.close()

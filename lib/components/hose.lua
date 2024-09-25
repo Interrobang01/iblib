@@ -1,3 +1,7 @@
+--[[
+Makes the object accelerate based on its angle. The idea is to make it fly around like a hose but it doesn't do that right now
+--]]
+
 local self_mass = nil
 
 function on_step()

@@ -1,3 +1,7 @@
+--[[
+Makes the object take a curved path when moving.
+--]]
+
 local rotate_vector = require("./packages/@interrobang/iblib/lib/rotate_vector.lua")
 
 function on_step()

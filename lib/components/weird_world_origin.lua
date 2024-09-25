@@ -1,3 +1,7 @@
+--[[
+Makes the world revolve around this object.
+--]]
+
 function on_step()
     local pos = self:get_position()
 

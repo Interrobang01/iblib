@@ -1,3 +1,7 @@
+--[[
+Makes the object maintain its vertical position by setting its velocity to the difference between the desired y value and the current y value.
+--]]
+
 local elevation = 0
 
 function on_start()
