@@ -34,7 +34,6 @@ function on_step()
 
                 local obj_distance = (obj_pos - position):magnitude()
                 local falloff = 0.95^obj_distance
-                print(angle_diff, falloff, angle_diff*falloff)
 
                 local obj_old_relative_pos = obj_pos-position
                 local obj_new_relative_pos = rotate_vector(obj_old_relative_pos, angle_diff*falloff)
