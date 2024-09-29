@@ -97,3 +97,6 @@ Makes the object accelerate based on its angle. The idea is to make it fly aroun
 
 ### weird_world_origin (component)
 Makes the world revolve around this object.
+
+### swirl (component)
+Makes it so that when the object rotates, it rotates things around it with it.
