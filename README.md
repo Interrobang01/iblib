@@ -64,6 +64,35 @@ INPUTS:
 OUTPUTS:
 - string, the component hash (for :add_component())
 
+### graphs
+A bunch of random graph theory functions that ChatGPT 4o gave me. Untested, use with caution. Returns a table filled with functions, the indexes are listed below.
+
+Included functions:
+
+    create_graph: Create a new empty graph
+
+    add_node: Add a node to the graph
+
+    add_edge: Add an edge between two nodes (undirected by default)
+
+    bfs: Breadth first search
+
+    dfs: Depth first search
+
+    dijkstra: Dijkstra's algorithm finds the shortest path between nodes in a weighted graph.
+
+    has_cycle: Detecting cycles in an undirected graph is useful for ensuring graph structures like trees.
+
+    is_connected: This function checks if the graph is fully connected (i.e., there is a path between any two nodes).
+    
+    topological_sort: Useful for scheduling tasks or resolving dependencies.
+
+    find: Helper function to find a node's set in union-find structure
+    
+    union: Helper function to union two sets
+    
+    kruskal: Kruskal’s algorithm is used to find a minimum spanning tree for a graph.
+
 ### iblib_font
 Letters go in, table of tables (characters) of tables (letters) of points goes out.
 
