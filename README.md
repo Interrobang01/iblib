@@ -64,6 +64,30 @@ INPUTS:
 OUTPUTS:
 - string, the component hash (for :add_component())
 
+### iblib_font
+Letters go in, table of tables (characters) of tables (letters) of points goes out.
+
+EXAMPLE USAGE:
+
+```
+local alphabet = "!\"#$%&'()*+,-./0123456789:'<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+local text = "The, quick. Brown fox? Jumped! Over: the (lazy) dog :>"
+
+local strokes_table = font(text)
+
+for i = 1,#strokes_table do
+    draw_letter(strokes_table[i],vec2(i*1.5,0)) 
+end
+```
+
+INPUTS:
+- string, the string you want to render
+
+OUTPUTS:
+- table of letters, containing:
+-- table of strokes, containing:
+-- table of vec2s
+
 ### line
 Given a line start, a line end, and an optional thickness, returns a table containing the table.position, table.size, and table.rotation values needed to make a line going between the line start and line end.
 
