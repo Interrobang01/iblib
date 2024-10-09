@@ -34,9 +34,7 @@ local function make_particle(pos)
 end
 
 function on_collision_start(data)
-    Console:log(tostring(#data.points))
     for i = 1, #data.points do
-        Console:log(tostring(data.points[i]))
         -- sometimes the second point isn't actually colliding so we have to check for that
         local circle = Scene:get_objects_in_circle{
             radius = 0.05,
