@@ -50,6 +50,6 @@ end
 
 function on_event(id, data)
     if id == "@interrobang/iblib/release_particle" then
-        make_particle(data[1])
+        make_particle(data.point)
     end
 end
