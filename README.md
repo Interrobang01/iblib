@@ -138,6 +138,9 @@ INPUTS:
 ### antigravity (component)
 Makes the object maintain its vertical position by setting its velocity to the difference between the desired y value and the current y value.
 
+### collision_particles (component)
+Makes the object release small particles on collision.
+
 ### gravity (component)
 Makes the object attract other objects.
 If you send the "@interrobang/iblib/send_to_orbit" event to an object with this component, it will be sent to orbit except that's actually broken right now so nevermind
