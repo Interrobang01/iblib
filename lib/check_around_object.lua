@@ -9,34 +9,17 @@ OUTPUTS:
 - table of objects, all the hits
 --]]
 
-function dump(o)
-    if type(o) == 'table' then
-       local s = '{ '
-       for k,v in pairs(o) do
-          if type(k) ~= 'number' then k = '"'..k..'"' end
-          s = s .. '['..k..'] = ' .. dump(v) .. ','
-       end
-       return s .. '} '
-    else
-       return tostring(o)
-    end
- end
- 
-
 local function iblib_check_around_object(object,distance)
     distance = distance or 0.05
 
     local shape = object:get_shape()
     local extended_points = {}
 
-    print(dump(shape.points))
-
     for i = 1, #shape.points do
         local point = shape.points[i]
         local extended_point = point:normalize() * (point:magnitude() + distance)
         extended_points[#extended_points+1] = object:get_world_point(extended_point)
     end
-    print(dump(extended_points))
 
     local all_hits_keys = {} -- hits will be keys because otherwise you get duplicates
     for i = 1, #extended_points do
@@ -51,8 +34,6 @@ local function iblib_check_around_object(object,distance)
             distance = direction:magnitude(),
             closest_only = false,
         }
-        print(extended_points[i],second_point)
-        print(dump(hits))
         if #hits ~= 0 then
             for n = 1, #hits do
                 all_hits_keys[hits[n].object] = true

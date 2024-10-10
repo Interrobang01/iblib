@@ -58,7 +58,6 @@ local function bfs(graph, start)
     
     while #queue > 0 do
         local node = table.remove(queue, 1)
-        print(node)
         
         for _, neighbor in ipairs(graph.adj[node]) do
             if not visited[neighbor.node] then
@@ -72,7 +71,6 @@ end
 local function dfs(graph, start, visited)
     visited = visited or {}
     visited[start] = true
-    print(start)
     
     for _, neighbor in ipairs(graph.adj[start]) do
         if not visited[neighbor.node] then
