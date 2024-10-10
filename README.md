@@ -54,6 +54,13 @@ Given the name of an iblib component, creates a box with that component at (0,0)
 INPUTS:
 - string, the name of the iblib component to test
 
+### check_around_object
+Returns a table of all the objects within a set distance of another object, sort of like a forcefield. Used for checking contact. Doesn't work with circles, use get_objects_in_circle() instead.
+
+INPUTS:
+- object, the object you want to test
+- table of objects, all the hits
+
 ### rotate_vector
 Rotates a vector by an angle in radians.
 
