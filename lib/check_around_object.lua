@@ -3,6 +3,9 @@ Returns a table of all the objects within a set distance of another object, sort
 
 INPUTS:
 - object, the object you want to test
+- number, how far away the rays should be (0.05 by default)
+
+OUTPUTS:
 - table of objects, all the hits
 --]]
 
