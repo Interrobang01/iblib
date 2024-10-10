@@ -48,6 +48,9 @@ INPUTS:
 - vec2, the point you want to test
 - table of vec2 values, the polygon you want to test. Adjacent values are assumed to be connected.
 
+OUTPUTS:
+- boolean, true if inside
+
 ### test_component
 Given the name of an iblib component, creates a box with that component at (0,0) for testing purposes.
 
@@ -59,6 +62,9 @@ Returns a table of all the objects within a set distance of another object, sort
 
 INPUTS:
 - object, the object you want to test
+- number, how far away the rays should be (0.05 by default)
+
+OUTPUTS:
 - table of objects, all the hits
 
 ### rotate_vector
