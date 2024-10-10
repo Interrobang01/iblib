@@ -55,7 +55,8 @@ OUTPUTS:
 Given the name of an iblib component, creates a box with that component at (0,0) for testing purposes.
 
 INPUTS:
-- string, the name of the iblib component to test
+- string/table, the name of the iblib component to test or a table of names to test
+- vec2, optional, the size of the box
 
 ### check_around_object
 Returns a table of all the objects within a set distance of another object, sort of like a forcefield. Used for checking contact.
@@ -161,7 +162,7 @@ OUTPUTS:
 Use with electicity_source
 
 ### electricity_source (component)
-Use with electicity_carrier
+Use with electicity_carrier. Object must have electricity_carrier.
 
 ### curved (component)
 Makes the object take a curved path when moving.
