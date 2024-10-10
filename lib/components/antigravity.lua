@@ -1,15 +1,7 @@
 --[[
-Makes the object maintain its vertical position by setting its velocity to the difference between the desired y value and the current y value.
+Makes the object unaffected by gravity.
 --]]
 
-local elevation = 0
-
-function on_start()
-    elevation = self:get_position().y
-end
-
 function on_step()
-    local vel = self:get_linear_velocity()
-    local pos = self:get_position()
-    self:set_linear_velocity(vec2(vel.x,elevation-pos.y))
+    self:apply_force_to_center(-Scene:get_gravity()*self:get_mass())
 end
