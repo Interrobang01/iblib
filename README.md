@@ -126,6 +126,15 @@ Included functions:
     
     kruskal: Kruskal’s algorithm is used to find a minimum spanning tree for a graph.
 
+### dump_table
+Returns the input table in a form easily printable to console. Function courtesy of stackoverflow.
+
+INPUTS:
+- table, the table you want to dump
+
+OUTPUTS:
+- string, the table you want to dump but now easily printable
+
 ### tripoint_box
 Given three points, returns a table with the table.position, table.size, and table.rotation values needed to make a box with two corners at the first two points and extending to the third.
 
@@ -147,6 +156,12 @@ INPUTS:
 
 OUTPUTS:
 - string or function, the function or component you wanted
+
+### electricity_carrier (component)
+Use with electicity_source
+
+### electricity_source (component)
+Use with electicity_carrier
 
 ### curved (component)
 Makes the object take a curved path when moving.
