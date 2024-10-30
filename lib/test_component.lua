@@ -11,11 +11,11 @@ local function iblib_test_component(name,size)
     local initialize_component = iblib("initialize_component")
     local components = {}
     if type(name) == "string" then
-        components[1] = initialize_component(iblib(name))
+        components[1] = initialize_component(iblib(name) or name) or name
     end
     if type(name) == "table" then
         for i,v in pairs(name) do
-            components[i] = initialize_component(iblib(v))
+            components[i] = initialize_component(iblib(v) or v) or v
         end
     end
 

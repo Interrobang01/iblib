@@ -9,6 +9,10 @@ OUTPUTS:
 --]]
 
 local function iblib_initialize_component(code)
+    if type(code) ~= "string" then
+        return nil
+    end
+
     local component = Scene:add_component{
         name = "iblib_temp_name",
         id = "iblib_temp_id",

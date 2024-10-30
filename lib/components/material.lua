@@ -30,9 +30,9 @@ function on_event(id, data)
             end
         else
             touching = {}
-            local check_hits = table.sort(check_around_object(self,0.01))
+            local check_hits = check_around_object(self,0.01)
             for i = 1, #check_hits do
-                hits = hits .. tostring(check_hits[i].guid) .. ","
+                hits = hits .. tostring(check_hits[i]) .. ","
             end
         end
         Scene:get_object_by_guid(data.sender):send_event("@interrobang/iblib/electricity_return_ping", {

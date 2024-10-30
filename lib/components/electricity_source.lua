@@ -10,6 +10,7 @@ local initialize_component = iblib("initialize_component")
 local delete_next_step = initialize_component(iblib("delete_next_step"))
 local linear_algebra = iblib("linear_algebra")
 local nodal_analysis = iblib("nodal_analysis")
+local draw = iblib("draw_iblib_font")
 
 local received_data = nil
 local self_guid = self.guid
@@ -125,6 +126,7 @@ local function search(start)
 end
 
 local last_graph = nil
+local numbers = {}
 function on_step()
     local graph = {}
     --[[
@@ -156,11 +158,21 @@ function on_step()
     local serialized_graph = dump(graph)
 
     if last_graph ~= serialized_graph then
+
+        for i = 1, #numbers do
+            numbers[i]:destroy()
+        end
+        numbers = {}
+
         local voltages = nodal_analysis(graph, linear_algebra)
         for node, voltage in pairs(voltages or {}) do
             Console:log("Node " .. node .. ": Voltage = " .. voltage .. " V")
+            local obj_pos = Scene:get_object_by_guid(node):get_position()
+            local text = draw(tostring(voltage), obj_pos + vec2(1,0), 0.2)
+            for i = 1, #text do
+                table.insert(numbers, 1, text[i])
+            end
         end
     end
     last_graph = serialized_graph
-    print("goob")
 end
