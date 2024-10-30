@@ -41,6 +41,16 @@ OUTPUTS:
 -- table of strokes, containing:
 -- table of vec2s
 
+### split_string
+Python string split but in lua. Code courtesy of stackoverflow.
+
+INPUTS:
+- string, the string to test
+- string, the separator; if it's longer than one character it'll treat them all as different separators and add them up, sort of like using an OR instead of an AND
+
+OUTPUTS:
+- table of strings, all the split substrings
+
 ### is_point_in_polygon
 Given a point and a table of points representing a polygon, returns whether the point is inside that polygon.
 
@@ -66,7 +76,7 @@ INPUTS:
 - number, how far away the rays should be (0.05 by default)
 
 OUTPUTS:
-- table of objects, all the hits
+- table of guids, all the hits
 
 ### rotate_vector
 Rotates a vector by an angle in radians.
@@ -77,6 +87,17 @@ INPUTS:
 
 OUTPUTS:
 - vec2, the rotated vector
+
+### linear_algebra
+A very tiny linear algebra library. Used with nodal_analysis.lua.
+
+Included functions:
+
+    ["create_matrix"]: Creates an empty n x n matrix
+
+    ["create_vector"] = Creates an empty vector of size n
+
+    ["solve_system"] = Solves the system A * x = B. Inputs are A and B, where A is a matrix and B is a vector.
 
 ### line
 Given a line start, a line end, and an optional thickness, returns a table containing the table.position, table.size, and table.rotation values needed to make a line going between the line start and line end.
@@ -136,6 +157,16 @@ INPUTS:
 OUTPUTS:
 - string, the table you want to dump but now easily printable
 
+### nodal_analysis
+Solves for the voltages of an electrical circuit.
+
+INPUTS:
+- table, a table of the circuit with a very specific format and structure that I won't get into here
+- table, the linear_algebra.lua library
+
+OUTPUTS:
+- table of numbers, the resulting voltages
+
 ### tripoint_box
 Given three points, returns a table with the table.position, table.size, and table.rotation values needed to make a box with two corners at the first two points and extending to the third.
 
@@ -158,20 +189,29 @@ INPUTS:
 OUTPUTS:
 - string or function, the function or component you wanted
 
-### electricity_carrier (component)
-Use with electicity_source
-
 ### electricity_source (component)
 Use with electicity_carrier. Object must have electricity_carrier.
 
 ### curved (component)
 Makes the object take a curved path when moving.
 
+### material (component)
+Defines a material. Doesn't do anything on its own.
+
 ### maintain_x (component)
 Makes the object maintain its horizontal position by setting its velocity to the difference between the desired x value and the current x value.
 
+### electricity_source_young (component)
+Use with electicity_carrier. Object must have electricity_carrier.
+
 ### antigravity (component)
 Makes the object unaffected by gravity.
+
+### delete_next_step (component)
+Deletes object next step.
+
+### electricity_source_old (component)
+Use with electicity_carrier. Object must have electricity_carrier.
 
 ### collision_particles (component)
 Makes the object release small particles on collision.
