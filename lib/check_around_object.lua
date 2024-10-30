@@ -6,7 +6,7 @@ INPUTS:
 - number, how far away the rays should be (0.05 by default)
 
 OUTPUTS:
-- table of objects, all the hits
+- table of guids, all the hits
 --]]
 
 local function iblib_check_around_object(object,distance)
@@ -39,7 +39,7 @@ local function iblib_check_around_object(object,distance)
             }
             if #hits ~= 0 then
                 for n = 1, #hits do
-                    all_hits_keys[hits[n].object] = true
+                    all_hits_keys[hits[n].object.guid] = true
                 end
             end
         end
@@ -62,7 +62,7 @@ local function iblib_check_around_object(object,distance)
         local hits = {}
         for i = 1, #circle do
             if circle[i] ~= object then
-                hits[#hits+1] = circle[i]
+                hits[#hits+1] = circle[i].guid
             end
         end
 
