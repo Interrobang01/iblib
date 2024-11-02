@@ -155,7 +155,7 @@ local function iblib_nodal_analysis(circuit, iblib_linear_algebra)
     -- Step 8: Make e matirx (part of z matrix)
     Console:log("Step 8: Make e matirx (part of z matrix)")
     for i = #indexed_circuit+1, #indexed_circuit + #voltage_sources do
-        z[i] = 5 -- all voltage sources are 5 volts. Might change later.
+        z[i] = 8
     end
 
     -- Step 9: Solve the linear system A * x = z to get node voltages

@@ -15,8 +15,6 @@ local draw = iblib("draw_iblib_font")
 local received_data = nil
 local self_guid = self.guid
 
-local voltage = 64
-
 function on_event(id, data)
     if id == "@interrobang/iblib/electricity_return_ping" then
         received_data  = data
@@ -60,7 +58,7 @@ local function visualize_graph(graph)
             local p1 = physical_node_graph[i]:get_position()
             local p2 = (physical_node_graph[k]:get_position() + p1)/2
             local args = line(p1, p2)
-            args.color = Color:rgb(m, m, 128)
+            args.color = Color:rgb(math.min(m,255), math.min(m,255), 128)
             args.is_static = true
             local box = Scene:add_box(args)
             box:set_angle(args.rotation)
@@ -69,7 +67,7 @@ local function visualize_graph(graph)
                 local p1 = physical_node_graph[i]:get_position()
                 local p2 = physical_node_graph[v.battery_negative_guid]:get_position()
                 local args = line(p1, p2)
-                args.color = Color:rgb(m, m, 255)
+                args.color = Color:rgb(math.min(m,255), math.min(m,255), 255)
                 args.is_static = true
                 local box = Scene:add_box(args)
                 box:set_angle(args.rotation)
@@ -82,7 +80,6 @@ end
 local function get_object_data(object) -- gets object contacts and properties, also does deseralization
     received_data = {}
     object:send_event("@interrobang/iblib/electricity_ping", {
-        voltage = voltage,
         sender = self_guid,
     })
     if received_data.hits ~= nil then
@@ -127,6 +124,7 @@ end
 
 local last_graph = nil
 local numbers = {}
+local last_nodes = {}
 function on_step()
     local graph = {}
     --[[
@@ -157,7 +155,7 @@ function on_step()
 
     local serialized_graph = dump(graph)
 
-    if last_graph ~= serialized_graph then
+    if last_graph ~= serialized_graph and last_graph ~= nil then
 
         for i = 1, #numbers do
             numbers[i]:destroy()
@@ -165,14 +163,25 @@ function on_step()
         numbers = {}
 
         local voltages = nodal_analysis(graph, linear_algebra)
+        local nodes = {}
         for node, voltage in pairs(voltages or {}) do
             Console:log("Node " .. node .. ": Voltage = " .. voltage .. " V")
-            local obj_pos = Scene:get_object_by_guid(node):get_position()
-            local text = draw(tostring(voltage), obj_pos + vec2(1,0), 0.2)
+            local obj = Scene:get_object_by_guid(node)
+            obj:send_event("@interrobang/iblib/voltage_update", {voltage = voltage})
+            local obj_pos = obj:get_position()
+            local text = draw(string.sub(tostring(math.floor(voltage+0.5)), 1, 3).." V", obj_pos + vec2(0.5,0), 0.2)
             for i = 1, #text do
                 table.insert(numbers, 1, text[i])
             end
+            nodes[node] = true
+            last_nodes[node] = nil
         end
+
+        for node, _ in pairs(last_nodes) do
+            local obj = Scene:get_object_by_guid(node)
+            obj:send_event("@interrobang/iblib/voltage_update", {voltage = 0})
+        end
+        last_nodes = nodes
     end
     last_graph = serialized_graph
 end
