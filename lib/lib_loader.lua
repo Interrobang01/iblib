@@ -11,21 +11,24 @@ OUTPUTS:
 --]]
 
 local function iblib(name)
-    local is_component = false
     if type(name) ~= "string" then
         name = tostring(name)
     end
     if name:sub(-4) == ".lua" then
         name = name:sub(1, -4)
     end
-    Console:log("Loading iblib function '"..name.."'")
+    print("Loading iblib function '"..name.."'")
     
-    local lib = require("./packages/@interrobang/iblib/lib/"..name..".lua")
-    if lib == nil then
----@diagnostic disable-next-line: redundant-parameter
-        lib = require("./packages/@interrobang/iblib/lib/components/"..name..".lua", "string")
+    local lib = nil
+    
+    if pcall(function()
+        lib = require("./packages/@interrobang/iblib/lib/"..name..".lua")
+    end) then
+        return lib
+    else
+        print("Error: Could not load iblib function '"..name.."'")
+        return nil
     end
-    return lib
 end
 
 return iblib
