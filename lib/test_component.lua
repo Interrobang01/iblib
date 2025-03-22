@@ -6,7 +6,7 @@ INPUTS:
 - vec2, optional, the size of the box
 --]]
 
-local function iblib_test_component(name,size)
+local function iblib_test_component(name,position,size)
     local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
     local initialize_component = iblib("initialize_component")
     local components = {}
@@ -20,13 +20,13 @@ local function iblib_test_component(name,size)
     end
 
     local box = Scene:add_box{
-        position = vec2(0,0),
+        position = position or vec2(0,0),
         size = size or vec2(1,1),
         color = 0xe5d3b9,
         is_static = false,
     }
     for i,v in pairs(components) do
-        box:add_component(v)
+        box:add_component({hash = v})
     end
     return box
 end

@@ -32,22 +32,22 @@ Included functions:
 
 
 -- Create a new empty graph
-local function createGraph()
+local function create_graph()
     return { adj = {} }
 end
 
 -- Add a node to the graph
-local function addNode(graph, node)
+local function add_node(graph, node)
     if not graph.adj[node] then
         graph.adj[node] = {}
     end
 end
 
 -- Add an edge between two nodes (undirected by default)
-local function addEdge(graph, u, v, weight)
+local function add_edge(graph, u, v, weight)
     weight = weight or 1
-    if not graph.adj[u] then addNode(graph, u) end
-    if not graph.adj[v] then addNode(graph, v) end
+    if not graph.adj[u] then add_node(graph, u) end
+    if not graph.adj[v] then add_node(graph, v) end
     table.insert(graph.adj[u], {node = v, weight = weight})
     table.insert(graph.adj[v], {node = u, weight = weight})  -- Remove for directed graph
 end
@@ -97,26 +97,23 @@ local function dijkstra(graph, source)
         table.sort(pq, function(a, b) return a.dist < b.dist end)
         local current = table.remove(pq, 1)
         
-        if visited[current.node] then
-            goto continue
-        end
-        visited[current.node] = true
-        
-        for _, neighbor in ipairs(graph.adj[current.node]) do
-            local alt = dist[current.node] + neighbor.weight
-            if alt < dist[neighbor.node] then
-                dist[neighbor.node] = alt
-                table.insert(pq, {node = neighbor.node, dist = alt})
+        if not visited[current.node] then
+            visited[current.node] = true
+            
+            for _, neighbor in ipairs(graph.adj[current.node]) do
+                local alt = dist[current.node] + neighbor.weight
+                if alt < dist[neighbor.node] then
+                    dist[neighbor.node] = alt
+                    table.insert(pq, {node = neighbor.node, dist = alt})
+                end
             end
         end
-        
-        ::continue::
     end
     
     return dist
 end
 
-local function hasCycle(graph)
+local function has_cycle(graph)
     local visited = {}
     
     local function dfs(node, parent)
@@ -146,7 +143,7 @@ local function hasCycle(graph)
     return false
 end
 
-local function isConnected(graph)
+local function is_connected(graph)
     local visited = {}
     local startNode = next(graph.adj)
     
@@ -163,7 +160,7 @@ local function isConnected(graph)
     return true
 end
 
-local function topologicalSort(graph)
+local function topological_sort(graph)
     local visited = {}
     local stack = {}
     
@@ -251,15 +248,15 @@ local function kruskal(graph)
 end
 
 local iblib_graphs = {
-    create_graph = createGraph,
-    add_node = addNode,
-    add_edge = addEdge,
+    create_graph = create_graph,
+    add_node = add_node,
+    add_edge = add_edge,
     bfs = bfs,
     dfs = dfs,
     dijkstra = dijkstra,
-    has_cycle = hasCycle,
-    is_connected = isConnected,
-    topological_sort = topologicalSort,
+    has_cycle = has_cycle,
+    is_connected = is_connected,
+    topological_sort = topological_sort,
     find = find,
     union = union,
     kruskal = kruskal,

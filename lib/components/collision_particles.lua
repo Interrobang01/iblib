@@ -2,7 +2,7 @@
 Makes the object release small particles on collision.
 --]]
 
-local particle_component = Scene:add_component{
+local particle_component = Scene:add_component_def{
     name = "Particle",
     id = "@interrobang/iblib/particle",
     version = "0.1.0",
@@ -30,7 +30,7 @@ local function make_particle(pos)
     particle:set_body_type(BodyType.Kinematic)
     particle:temp_set_collides(false)
     particle:set_linear_velocity(vec2(math.random()-0.5,math.random()-0.5))
-    particle:add_component(particle_component)
+    particle:add_component({hash=particle_component})
 end
 
 function on_collision_start(data)

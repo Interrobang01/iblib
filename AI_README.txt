@@ -6,4 +6,4 @@ Thanks.
 
 Keep in mind:
 There is no Console.log, but there was in previous versions of the game, so it might be lurking in the code in places. Replace it with print().
-
+Don't use goto! If you have to, definitely don't use keywords for it!

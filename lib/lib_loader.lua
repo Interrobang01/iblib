@@ -22,6 +22,11 @@ local function iblib(name)
     local lib = nil
     
     if pcall(function()
+---@diagnostic disable-next-line: redundant-parameter
+        lib = require("./packages/@interrobang/iblib/lib/components/"..name..".lua", "string")
+    end) then
+        return lib
+    elseif pcall(function()
         lib = require("./packages/@interrobang/iblib/lib/"..name..".lua")
     end) then
         return lib

@@ -1,5 +1,7 @@
----- Run everything to make sure it works
-
+--[[
+local tests = require("@interrobang/iblib/tests/tests.lua")
+tests()
+]]--
 
 local function run_tests()
     local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
@@ -31,12 +33,12 @@ local function run_tests()
         print("is_point_in_polygon test complete, inside=" .. tostring(inside) .. ", outside=" .. tostring(outside))
     end
     
-    -- local function test_test_component()
-    --     local test_component = iblib("test_component")
-    --     -- Testing with multiple components
-    --     test_component({"maintain_x", "maintain_y"}, vec2(2,2))
-    --     print("test_component test complete")
-    -- end
+    local function test_test_component()
+        local test_component = iblib("test_component")
+        -- Testing with multiple components
+        test_component({"maintain_x", "maintain_y"}, vec2(2,2))
+        print("test_component test complete")
+    end
     
     local function test_check_around_object()
         local check_around_object = iblib("check_around_object")
@@ -77,12 +79,12 @@ local function run_tests()
         print("line test complete")
     end
     
-    -- local function test_initialize_component()
-    --     local initialize_component = iblib("initialize_component")
-    --     local component_code = "function step()\n  print('test')\nend"
-    --     local hash = initialize_component(component_code)
-    --     print("initialize_component test complete, hash=" .. hash)
-    -- end
+    local function test_initialize_component()
+        local initialize_component = iblib("initialize_component")
+        local component_code = "function step()\n  print('test')\nend"
+        local hash = initialize_component(component_code)
+        print("initialize_component test complete, hash=" .. hash)
+    end
     
     local function test_graphs()
         local graphs = iblib("graphs")
@@ -103,30 +105,30 @@ local function run_tests()
         print("dump_table test complete")
     end
     
-    -- local function test_components()
-    --     local test_component = iblib("test_component")
-    --     -- Test various components by loading them
-    --     local components = {
-    --         "curved",
-    --         "maintain_x",
-    --         "delete_next_step",
-    --         "collision_particles",
-    --         "maintain_y",
-    --         "swirl",
-    --         "hose",
-    --         "gravity",
-    --         "weird_world_origin"
-    --     }
+    local function test_components()
+        local test_component = iblib("test_component")
+        -- Test various components by loading them
+        local components = {
+            "curved",
+            "maintain_x",
+            "delete_next_step",
+            "collision_particles",
+            "maintain_y",
+            "swirl",
+            "hose",
+            "gravity",
+            "weird_world_origin"
+        }
         
-    --     local x_pos = 50
-    --     for _, component_name in ipairs(components) do
-    --         local component = iblib(component_name)
-    --         print("Loaded component: " .. component_name)
-    --         test_component(component_name, vec2(x_pos, 50))  -- Position them at x_pos, 50
-    --         x_pos = x_pos + 5  -- Space them out if they get created in the world
-    --     end
-    --     print("Components test complete")
-    -- end
+        local x_pos = 50
+        for _, component_name in ipairs(components) do
+            local component = iblib(component_name)
+            print("Loaded component: " .. component_name)
+            test_component(component_name, vec2(x_pos, 50))  -- Position them at x_pos, 50
+            x_pos = x_pos + 5  -- Space them out if they get created in the world
+        end
+        print("Components test complete")
+    end
 
     -- Run all tests
     print("Starting iblib tests...")
@@ -134,15 +136,15 @@ local function run_tests()
     test_iblib_font()
     test_split_string()
     test_is_point_in_polygon()
-    -- test_test_component()
+    test_test_component()
     test_check_around_object()
     test_rotate_vector()
     test_linear_algebra()
     test_line()
-    -- test_initialize_component()
+    test_initialize_component()
     test_graphs()
     test_dump_table()
-    -- test_components()
+    test_components()
     print("All iblib tests completed!")
 end
 
