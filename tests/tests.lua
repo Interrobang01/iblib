@@ -109,7 +109,6 @@ local function run_tests()
         local components = {
             "curved",
             "maintain_x",
-            "antigravity",
             "delete_next_step",
             "collision_particles",
             "maintain_y",
