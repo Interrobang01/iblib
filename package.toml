@@ -1,16 +1,5 @@
+
 [package]
 name = "Iblib"
-version = "0.2.0"
-description = """
-Iblib (short for Interrobang's Library) is a library of Simulo Luau functions that you can use in whatever you want.
-
-To get started, do
-```
-local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
-```
-then, when you want to load a function, do
-```
-local function_name = iblib("function_name")
-```
-If that function is a component, it will return a string containing that component's code instead of a function. Use initialize_component to return a component hash instead.
-"""
+version = "0.2.1"
+description = """package_toml_description_template + description_template + documentation + """
