@@ -4,10 +4,10 @@
 local function run_tests()
     local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
     
-    local function test_tripoint_box()
-        local tripoint_box = iblib("tripoint_box")
-        local result = tripoint_box(vec2(30,30), vec2(33,30), vec2(0,35))
-        print("tripoint_box test complete")
+    local function test_three_point_box()
+        local three_point_box = iblib("three_point_box")
+        local result = three_point_box(vec2(30,30), vec2(33,30), vec2(0,35))
+        print("three_point_box test complete")
     end
     
     local function test_iblib_font()
@@ -130,7 +130,7 @@ local function run_tests()
 
     -- Run all tests
     print("Starting iblib tests...")
-    test_tripoint_box()
+    test_three_point_box()
     test_iblib_font()
     test_split_string()
     test_is_point_in_polygon()

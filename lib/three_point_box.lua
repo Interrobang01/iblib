@@ -10,7 +10,7 @@ OUTPUTS:
 - a table containing the following indexes: position, size, rotation
 --]]
 
-local function tripoint_box(line_start,line_end,line_extension)
+local function three_point_box(line_start,line_end,line_extension)
 
     -- declaring functions might be inefficient but uhhhh shut up it's a stylistic choice
     local function points_to_standard_form(p1,p2)
@@ -53,4 +53,4 @@ local function tripoint_box(line_start,line_end,line_extension)
     }
 end
 
-return tripoint_box
+return three_point_box
