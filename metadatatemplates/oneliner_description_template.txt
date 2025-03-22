@@ -1,0 +1,1 @@
+Iblib (short for Interrobang's Library) is a library of Simulo Luau functions that you can use in whatever you want.

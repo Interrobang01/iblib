@@ -5,7 +5,7 @@ template_folder = r"metadatatemplates"
 filepathes = {
     "readme_template": template_folder + "/" + r"README_template.txt",
     "description_template": template_folder + "/" + r"description_template.txt",
-    "package_toml_description_template": template_folder + "/" + r"package_toml_description_template.txt",
+    "oneliner_description_template": template_folder + "/" + r"oneliner_description_template.txt",
     "version_num": r"current_version.txt"
 }
 
@@ -61,8 +61,8 @@ with open(filepathes["readme_template"], "r", encoding='utf-8') as file:
 with open(filepathes["description_template"], "r", encoding='utf-8') as file:
     description_template = file.read()
     
-with open(filepathes["package_toml_description_template"], "r", encoding='utf-8') as file:
-    package_toml_description_template = file.read()
+with open(filepathes["oneliner_description_template"], "r", encoding='utf-8') as file:
+    oneliner_description_template = file.read()
 
 with open(filepathes["version_num"], "r", encoding='utf-8') as file:
     version = file.read()
@@ -77,19 +77,13 @@ with open(filepathes["version_num"], "w", encoding='utf-8') as file:
 # Print the new version number
 print(f"New version number: {version}")
 
-# Build README.md content: readme template + description template + docs
-readme_content = readme_template + description_template + documentation
+readme_content = readme_template + oneliner_description_template + description_template + documentation
 
-# Build package.toml content: package toml template + """ + package toml description template + description template + docs + """
 package_toml_content = f"""
 [package]
 name = "Iblib"
 version = "{version}"
-description = \"\"\"
-{package_toml_description_template}
-{description_template}
-{documentation}
-\"\"\"
+description = "{oneliner_description_template}"
 """
 
 # Write the README.md file
