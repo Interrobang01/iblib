@@ -7,6 +7,7 @@ filepathes = {
     "description_template": template_folder + "/" + r"description_template.txt",
     "package_toml_description_template": template_folder + "/" + r"package_toml_description_template.txt",
     "package_toml_template": template_folder + "/" + r"package_toml_template.txt",
+    "version_num": r"current_version.txt"
 }
 
 # Check existence
@@ -67,11 +68,29 @@ with open(filepathes["package_toml_template"], "r", encoding='utf-8') as file:
 with open(filepathes["package_toml_description_template"], "r", encoding='utf-8') as file:
     package_toml_description_template = file.read()
 
+with open(filepathes["version_num"], "r", encoding='utf-8') as file:
+    version = file.read()
+
+# Increment version number by 1
+version_list = version.split('.')
+version_list[-1] = str(int(version_list[-1]) + 1)  # Increment the last part of the version
+version = '.'.join(version_list)
+# Write the new version number back to the file
+with open(filepathes["version_num"], "w", encoding='utf-8') as file:
+    file.write(version)
+# Print the new version number
+print(f"New version number: {version}")
+
 # Build README.md content: readme template + description template + docs
 readme_content = readme_template + description_template + documentation
 
 # Build package.toml content: package toml template + """ + package toml description template + description template + docs + """
-package_toml_content = package_toml_template + '"""' + package_toml_description_template + description_template + documentation + '"""'
+package_toml_content = f"""
+[package]
+name = "Iblib"
+version = "{version}"
+description = \"\"\"package_toml_description_template + description_template + documentation + \"\"\"
+"""
 
 # Write the README.md file
 with open(r"README.md", "w", encoding='utf-8') as file:

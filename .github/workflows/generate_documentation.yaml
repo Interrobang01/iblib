@@ -24,7 +24,7 @@ jobs:
 
     - name: Run documentation script
       run: |
-        python generate_documentation.py
+        python update_metadata.py
 
     - name: Commit changes
       run: |
