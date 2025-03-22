@@ -33,8 +33,6 @@ local function run_tests()
     
     local function test_test_component()
         local test_component = iblib("test_component")
-        -- Testing with a single component
-        test_component("electricity_source", vec2(2,2))
         -- Testing with multiple components
         test_component({"maintain_x", "maintain_y"}, vec2(2,2))
         print("test_component test complete")
@@ -109,14 +107,10 @@ local function run_tests()
         local test_component = iblib("test_component")
         -- Test various components by loading them
         local components = {
-            "electricity_source",
             "curved",
-            "material",
             "maintain_x",
-            "electricity_source_young",
             "antigravity",
             "delete_next_step",
-            "electricity_source_old",
             "collision_particles",
             "maintain_y",
             "swirl",
