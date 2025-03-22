@@ -22,6 +22,7 @@ local function iblib(name)
     
     local lib = require("./packages/@interrobang/iblib/lib/"..name..".lua")
     if lib == nil then
+---@diagnostic disable-next-line: redundant-parameter
         lib = require("./packages/@interrobang/iblib/lib/components/"..name..".lua", "string")
     end
     return lib
