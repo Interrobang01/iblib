@@ -1,11 +1,6 @@
 # iblib
 
-Iblib (short for Interrobang's Library) is a library of mostly-side-effect-less Simulo functions that you can use in whatever you want.
-
-To download this package run
-```
-@interrobang/iblib;https://github.com/Interrobang01/iblib.git
-```
+Iblib (short for Interrobang's Library) is a library of Simulo Luau functions that you can use in whatever you want.
 
 To get started, do
 ```
@@ -15,4 +10,5 @@ then, when you want to load a function, do
 ```
 local function_name = iblib("function_name")
 ```
-If that function is a component, it will return a string containing that component's code instead of a function.
+If that function is a component, it will return a string containing that component's code instead of a function. Use initialize_component to return a component hash instead.
+
