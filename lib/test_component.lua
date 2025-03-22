@@ -10,6 +10,7 @@ local function iblib_test_component(name,position,size)
     local iblib = require("./packages/@interrobang/iblib/lib/lib_loader.lua")
     local initialize_component = iblib("initialize_component")
     local components = {}
+    
     if type(name) == "string" then
         components[1] = initialize_component(iblib(name) or name) or name
     end
