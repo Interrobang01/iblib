@@ -6,7 +6,6 @@ filepathes = {
     "readme_template": template_folder + "/" + r"README_template.txt",
     "description_template": template_folder + "/" + r"description_template.txt",
     "package_toml_description_template": template_folder + "/" + r"package_toml_description_template.txt",
-    "package_toml_template": template_folder + "/" + r"package_toml_template.txt",
     "version_num": r"current_version.txt"
 }
 
@@ -61,9 +60,6 @@ with open(filepathes["readme_template"], "r", encoding='utf-8') as file:
     
 with open(filepathes["description_template"], "r", encoding='utf-8') as file:
     description_template = file.read()
-    
-with open(filepathes["package_toml_template"], "r", encoding='utf-8') as file:
-    package_toml_template = file.read()
     
 with open(filepathes["package_toml_description_template"], "r", encoding='utf-8') as file:
     package_toml_description_template = file.read()
