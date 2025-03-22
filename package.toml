@@ -1,6 +1,6 @@
 
 [package]
 name = "Iblib"
-version = "0.2.0"
-description = "Iblib (short for Interrobang's Library) is a library of Simulo Luau functions that you can use in whatever you want."
-
+version = "0.2.1"
+description = "Iblib (short for Interrobang's Library) is a library of Simulo Luau functions that you can use in whatever you want.
+"
