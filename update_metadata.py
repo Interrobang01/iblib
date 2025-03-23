@@ -83,7 +83,7 @@ package_toml_content = f"""
 [package]
 name = "Iblib"
 version = "{version}"
-description = "{oneliner_description_template}"
+description = "{oneliner_description_template.strip()}"
 """
 
 # Write the README.md file
