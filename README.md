@@ -56,9 +56,9 @@ Included functions:
 
     ["create_matrix"]: Creates an empty n x n matrix
 
-    ["create_vector"] = Creates an empty vector of size n
+    ["create_vector"]: Creates an empty vector of size n
 
-    ["solve_system"] = Solves the system A * x = B. Inputs are A and B, where A is a matrix and B is a vector.
+    ["solve_system"]: Solves the system A * x = B. Inputs are A and B, where A is a matrix and B is a vector.
 
 ### test_component
 Given the name of an iblib component, creates a box with that component at (0,0) for testing purposes.
