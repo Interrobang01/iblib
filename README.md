@@ -49,6 +49,9 @@ INPUTS:
 OUTPUTS:
 - boolean, true if inside
 
+### middleclass
+A third-party library for OOP in Lua, go to https://github.com/kikito/middleclass/wiki for documentation
+
 ### linear_algebra
 A very tiny linear algebra library. Used with nodal_analysis.lua.
 
@@ -115,6 +118,16 @@ INPUTS:
 OUTPUTS:
 - table of guids, all the hits
 
+### draw_iblib_font
+Make capsules draw text using the iblib font
+
+INPUTS:
+- string: the string to draw
+- vec2: the location to draw the text at
+- number: the point size to draw the text at (default 1)
+OUTPUTS:
+- table: a table of capsules that were created to draw the text
+
 ### three_point_box
 Given three points, returns a table with the table.position, table.size, and table.rotation values needed to make a box with two corners at the first two points and extending to the third.
 
@@ -146,6 +159,101 @@ INPUTS:
 
 OUTPUTS:
 - vec2, the rotated vector
+
+### polygon
+Functions for a variety of polygon and shape operations and conversions, the main one being boolean operations.
+
+Terminology:
+- shape: The thing used with get_shape() or set_shape()
+- points: A table of *relative* vec2 points
+- polygon: A table of *absolute* coordinates representing a polygon, e.g. {x1,y1,x2,y2,...}
+- Polygon (object): An instance of the Polygon class. Built with a polygon.
+
+Included functions:
+
+    ["polygon_boolean"]: Performs boolean operations on two polygons.
+		Go to https://github.com/Bigfoot71/2d-polygon-boolean-lua for better documentation
+		INPUTS:
+		- polygon, the subject polygon
+		- polygon, the operating polygon
+		- string, the operation to perform: "and", "or", "not"
+		- boolean, if true, return only the most relevant polygon from the operation (default: false)
+		OUTPUTS:
+		- polygon, the polygon resulting from the operation,
+		OR table, a tables of multiple polygons, if multiple polygons were returned
+
+
+	["Point"]: vec2 but better, used by Polygon class
+		Undocumented; check code
+
+	["Polygon"]: Polygon class for representing 2D polygons
+		Undocumented; check code
+
+	["split_concave_polygon"]: Splits a concave polygon into convex polygons
+		INPUTS:
+		- polygon, the concave polygon to split
+		OUTPUTS:
+		- table, a table of convex polygons
+
+	["shape_to_points"]: Converts a shape to relative points
+		INPUTS:
+		- shape, the shape to convert (can be a polygon, circle, or box)
+		- circle_points (optional), the number of points to approximate a circle (default: 32)
+		OUTPUTS:
+		- points
+
+	["points_to_shape"]: Converts relative points to a shape
+		INPUTS:
+		- points
+		OUTPUTS:
+		- shape, shape type of polygon (meaning shape to points to shape might be lossy)
+
+	["points_to_polygon"]: Converts relative points to an absolute polygon
+		INPUTS:
+		- points
+		- position (optional), the position to translate the polygon to (default: vec2(0, 0))
+		- rotation (optional), the rotation to apply to the polygon (default: 0)
+		OUTPUTS:
+		- polygon
+
+	["polygon_to_points"]: Converts an absolute polygon to relative points
+		INPUTS:
+		- polygon
+		- position (optional), the position to subtract from the polygon (default: average position of points)
+		- rotation (optional), the rotation to reverse on the polygon (default: 0)
+		OUTPUTS:
+		- points
+
+	["shape_to_polygon"]: Converts a shape to an absolute polygon
+		INPUTS:
+		- shape
+		- position (optional), the position to translate the polygon to (default: vec2(0, 0))
+		- rotation (optional), the rotation to apply to the polygon (default: 0)
+		OUTPUTS:
+		- polygon
+
+	["polygon_to_shape"]: Converts an absolute polygon to a shape
+		INPUTS:
+		- polygon
+		- position (optional), the position to subtract from the polygon (default: average position of points)
+		- rotation (optional), the rotation to reverse on the polygon (default: 0)
+		OUTPUTS:
+		- shape
+
+	["shape_boolean"]: Performs boolean operations on two shapes
+		INPUTS:
+		- args, a table containing the following fields:
+			- shape_a, the first shape
+			- position_a (optional), the position of the first shape (default: vec2(0, 0))
+			- rotation_a (optional), the rotation of the first shape (default: 0)
+			- shape_b, the second shape
+			- position_b (optional), the position of the second shape (default: vec2(0, 0))
+			- rotation_b (optional), the rotation of the second shape (default: 0)
+			- operation (optional), the boolean operation to perform: "and", "or", "not" (default: "not")
+			- make_convex (optional), whether to split the result into convex polygons (default: false)
+			- get_most_relevant (optional), whether to return only the most relevant polygon (default: false)
+		OUTPUTS:
+		- table of shapes, the shapes resulting from the operation, or nil if no result
 
 ### iblib_font
 Letters go in, table of tables (characters) of tables (letters) of points goes out.
