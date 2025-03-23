@@ -92,7 +92,7 @@ Included functions:
 			- get_most_relevant (optional), whether to return only the most relevant polygon (default: false)
 		OUTPUTS:
 		- table of shapes, the shapes resulting from the operation, or nil if no result
-]]--
+--]]
 
 local rotate = require("@interrobang/iblib/lib/rotate_vector.lua")
 local middleclass = require("@interrobang/iblib/lib/middleclass.lua")

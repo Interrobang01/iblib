@@ -1,3 +1,14 @@
+--[[
+Make capsules draw text using the iblib font
+
+INPUTS:
+- string: the string to draw
+- vec2: the location to draw the text at
+- number: the point size to draw the text at (default 1)
+OUTPUTS:
+- table: a table of capsules that were created to draw the text
+--]]
+
 local function iblib_draw_iblib_font(text, location, pt)
     pt = pt or 1
 

@@ -1,6 +1,6 @@
 --[[
 A third-party library for OOP in Lua, go to https://github.com/kikito/middleclass/wiki for documentation
-]]--
+--]]
 
 local middleclass = {
   _VERSION     = 'middleclass v4.1.1',
