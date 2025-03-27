@@ -1241,15 +1241,15 @@ local function shape_boolean(args)
 
 	-- If make_convex is true, make a new table of convex polygons
 	if make_convex then
-		local all_convex_polygons = {}
-		for _, polygon in ipairs(result) do
-			local convex_polygons = split_concave_polygon(polygon)
+		local all_convex_shapes = {}
+		for i = 1, #result do
+			local convex_polygons = split_concave_polygon(result[i])
 			for _, convex_polygon in ipairs(convex_polygons) do
 				local convex_shape = polygon_to_shape(convex_polygon, position_a, rotation_a)
-				table.insert(all_convex_polygons, convex_polygon)
+				table.insert(all_convex_shapes, convex_shape)
 			end
 		end
-		return all_convex_polygons
+		return all_convex_shapes
 	else
 		-- Convert the result back to shapes
 		for i = 1, #result do
