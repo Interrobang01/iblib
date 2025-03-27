@@ -28,7 +28,7 @@ def process_files_in_directory(directory):
                 with open(file_path, 'r', encoding='utf-8') as file:
                     file_content = extract_substring(file.read())
                     if file_content != None:
-                        string = string + "\n### " + filename.split(".")[0]
+                        string = string + "\n## `" + filename.split(".")[0] + "`"
                         if file_path.find("components") != -1:
                             string = string + " (component)"
                         string = string + "\n" + file_content + "\n"
@@ -95,3 +95,4 @@ with open(r"package.toml", "w", encoding='utf-8') as file:
     file.write(package_toml_content)
 
 print("Generated README.md and package.toml successfully!")
+
