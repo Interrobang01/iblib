@@ -77,6 +77,13 @@ Included functions:
 		- rotation (optional), the rotation to reverse on the polygon (default: 0)
 		OUTPUTS:
 		- shape
+	
+	["is_polygon_in_polygon"]: Checks if one polygon is inside another
+		INPUTS:
+		- polygon, the polygon that might be inside the other
+		- polygon, the polygon that might contain the other
+		OUTPUTS:
+		- boolean, true if the first polygon is inside the second polygon, else false
 
 	["shape_boolean"]: Performs boolean operations on two shapes
 		INPUTS:
@@ -1212,6 +1219,25 @@ local function polygon_to_shape(polygon, position, rotation)
     return iblib_points_to_shape(iblib_polygon_to_points(polygon, position, rotation))
 end
 
+
+
+local function is_polygon_in_polygon(polygon_a, polygon_b)
+	local Polygon_a = Polygon(table.unpack(polygon_a))
+	local Polygon_b = Polygon(table.unpack(polygon_b))
+
+	-- Check if any vertex of polygon_a is inside polygon_b
+	for i = 1, #Polygon_a.vertices do
+		local vertex = Polygon_a.vertices[i]
+		if Polygon_b:contains(vertex.x, vertex.y) then
+			return true
+		end
+	end
+
+	return false
+end
+
+
+
 local function shape_boolean(args)
 	local shape_a = args.shape_a
 	local position_a = args.position_a
@@ -1230,6 +1256,11 @@ local function shape_boolean(args)
 	-- Convert shapes to polygons
 	local polygon_a = shape_to_polygon(shape_a, position_a, rotation_a)
 	local polygon_b = shape_to_polygon(shape_b, position_b, rotation_b)
+
+	-- Ensure polygons do not contain each other
+	if is_polygon_in_polygon(polygon_a, polygon_b) or is_polygon_in_polygon(polygon_b, polygon_a) then
+		print("Warning: One polygon is contained within the other. This may lead to unexpected results.")
+	end
 
 	-- Perform boolean operation
 	local result = polygon_boolean(polygon_a, polygon_b, operation, get_most_relevant)
@@ -1291,7 +1322,6 @@ local function get_shape_size(shape)
 	return obj_size
 end
 
-
 return {
 	polygon_boolean = polygon_boolean,
 
@@ -1305,6 +1335,8 @@ return {
     polygon_to_points = iblib_polygon_to_points,
     shape_to_polygon = shape_to_polygon,
     polygon_to_shape = polygon_to_shape,
+
+	is_polygon_in_polygon = is_polygon_in_polygon,
 
 	shape_boolean = shape_boolean,
 	
