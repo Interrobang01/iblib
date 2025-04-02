@@ -78,7 +78,7 @@ Included functions:
 		OUTPUTS:
 		- shape
 	
-	["is_polygon_in_polygon"]: Checks if one polygon is inside another
+	["is_polygon_in_polygon"]: Checks if one polygon is entirely contained inside another
 		INPUTS:
 		- polygon, the polygon that might be inside the other
 		- polygon, the polygon that might contain the other
@@ -1228,12 +1228,12 @@ local function is_polygon_in_polygon(polygon_a, polygon_b)
 	-- Check if any vertex of polygon_a is inside polygon_b
 	for i = 1, #Polygon_a.vertices do
 		local vertex = Polygon_a.vertices[i]
-		if Polygon_b:contains(vertex.x, vertex.y) then
-			return true
+		if not Polygon_b:contains(vertex.x, vertex.y) then
+			return false
 		end
 	end
 
-	return false
+	return true
 end
 
 
