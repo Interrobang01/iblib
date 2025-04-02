@@ -92,6 +92,14 @@ Included functions:
 			- get_most_relevant (optional), whether to return only the most relevant polygon (default: false)
 		OUTPUTS:
 		- table of shapes, the shapes resulting from the operation, or nil if no result
+	
+	["get_shape_size"]: Approximates the 'radius' of the shape
+		INPUTS:
+		- shape, the shape to get the size of
+		OUTPUTS:
+		- number, the size of the shape
+	
+	
 --]]
 
 local rotate = require("@interrobang/iblib/lib/rotate_vector.lua")
@@ -1261,6 +1269,28 @@ local function shape_boolean(args)
 
 end
 
+local function get_shape_size(shape)
+    local obj_size = 1
+    if shape.shape_type == "circle" then
+        obj_size = shape.radius
+    elseif shape.shape_type == "box" then
+        obj_size = math.min(shape.size.x, shape.size.y) / 2
+    elseif shape.shape_type == "polygon" then
+        -- For polygons, estimate the size from the points
+        local max_dist = 0
+        for _, point in ipairs(shape.points) do
+            local dist = point:magnitude()
+            if dist > max_dist then
+                max_dist = dist
+            end
+        end
+        obj_size = max_dist
+    else
+		error("Unsupported shape type: " .. tostring(shape.shape_type))
+	end
+	return obj_size
+end
+
 
 return {
 	polygon_boolean = polygon_boolean,
@@ -1277,4 +1307,6 @@ return {
     polygon_to_shape = polygon_to_shape,
 
 	shape_boolean = shape_boolean,
+	
+	get_shape_size = get_shape_size,
 }
