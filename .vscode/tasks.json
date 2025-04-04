@@ -4,6 +4,13 @@
         {
             "type": "simulo",
             "request": "launch",
+            "name": "Run main.lua (Simulo)",
+            "program": "./tests/main.lua",
+            "focus": false
+        },
+        {
+            "type": "simulo",
+            "request": "launch",
             "name": "Run Active File (Simulo)",
             "program": "${file}",
             "focus": true
