@@ -1,0 +1,12 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "type": "simulo",
+            "request": "launch",
+            "name": "Run Active File (Simulo)",
+            "program": "${file}",
+            "focus": true
+        }
+    ]
+}

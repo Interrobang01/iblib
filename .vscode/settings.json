@@ -1,0 +1,8 @@
+{
+    "Lua.diagnostics.globals": [
+        "Color",
+        "Console",
+        "Scene",
+        "vec2"
+    ]
+}
