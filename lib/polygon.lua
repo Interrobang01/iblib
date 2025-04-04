@@ -113,6 +113,19 @@ Included functions:
 		- vec2, the center position of the bounding box
 		- vec2, the size of the bounding box
 	
+	["center_points"]: Centers a table of points around the origin (0,0)
+		INPUTS:
+		- points, the points to be centered
+		OUTPUTS:
+		- points, the points centered around the origin
+		- vec2, the translation that was applied to center the points
+
+	["center_shape"]: Centers a shape around the origin (0,0)
+		INPUTS:
+		- shape, the shape to be centered
+		OUTPUTS:
+		- shape, the shape centered around the origin
+		- vec2, the translation that was applied to center the shape
 --]]
 
 local rotate = require("@interrobang/iblib/lib/rotate_vector.lua")
@@ -1448,6 +1461,40 @@ local function get_bounding_box(shape)
     return center, box_size
 end
 
+local function center_points(points)
+    if #points == 0 then
+        return {}, vec2(0, 0)
+    end
+    
+    -- Calculate centroid of the points
+    local sum_x, sum_y = 0, 0
+    for _, point in ipairs(points) do
+        sum_x = sum_x + point.x
+        sum_y = sum_y + point.y
+    end
+    
+    local center_x = sum_x / #points
+    local center_y = sum_y / #points
+    local center_vec = vec2(center_x, center_y)
+    
+    -- Create new set of points, translated to be centered around the origin
+    local centered_points = {}
+    for _, point in ipairs(points) do
+        table.insert(centered_points, point - center_vec)
+    end
+    
+    return centered_points, center_vec
+end
+
+local function center_shape(shape)
+	if shape.shape_type == "polygon" then
+		local points = shape.points
+		local centered_points, center_vec = center_points(points)
+		shape.points = centered_points
+		return shape, center_vec
+	end
+	return shape, vec2(0, 0)
+end
 
 return {
 	polygon_boolean = polygon_boolean,
@@ -1469,4 +1516,6 @@ return {
 	
 	get_shape_size = get_shape_size,
 	get_bounding_box = get_bounding_box,
+	center_points = center_points,
+	center_shape = center_shape,
 }
