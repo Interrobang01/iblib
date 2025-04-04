@@ -106,6 +106,12 @@ Included functions:
 		OUTPUTS:
 		- number, the size of the shape
 	
+	["get_bounding_box"]: Returns the position and size of a box that encompasses the shape
+		INPUTS:
+		- shape, the shape to get the bounding box of
+		OUTPUTS:
+		- vec2, the center position of the bounding box
+		- vec2, the size of the bounding box
 	
 --]]
 
@@ -1396,6 +1402,53 @@ local function get_shape_size(shape)
 	return obj_size
 end
 
+local function get_bounding_box(shape)
+    local min_x, min_y, max_x, max_y
+    
+    if shape.shape_type == "circle" then
+        min_x = -shape.radius
+        min_y = -shape.radius
+        max_x = shape.radius
+        max_y = shape.radius
+    elseif shape.shape_type == "box" then
+        local half_width = shape.size.x / 2
+        local half_height = shape.size.y / 2
+        min_x = -half_width
+        min_y = -half_height
+        max_x = half_width
+        max_y = half_height
+    elseif shape.shape_type == "polygon" then
+        if #shape.points > 0 then
+            -- Initialize with first point values
+            min_x = shape.points[1].x
+            min_y = shape.points[1].y
+            max_x = shape.points[1].x
+            max_y = shape.points[1].y
+            
+            -- Check all other points
+            for i = 2, #shape.points do
+                local point = shape.points[i]
+                min_x = math.min(min_x, point.x)
+                min_y = math.min(min_y, point.y)
+                max_x = math.max(max_x, point.x)
+                max_y = math.max(max_y, point.y)
+            end
+        else
+            -- Default for empty polygon
+            min_x, min_y, max_x, max_y = 0, 0, 0, 0
+        end
+    else
+        error("Unsupported shape type: " .. tostring(shape.shape_type))
+    end
+    
+    -- Calculate center position and size
+    local center = vec2((min_x + max_x) / 2, (min_y + max_y) / 2)
+    local box_size = vec2(max_x - min_x, max_y - min_y)
+    
+    return center, box_size
+end
+
+
 return {
 	polygon_boolean = polygon_boolean,
 
@@ -1415,4 +1468,5 @@ return {
 	shape_boolean = shape_boolean,
 	
 	get_shape_size = get_shape_size,
+	get_bounding_box = get_bounding_box,
 }
