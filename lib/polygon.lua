@@ -94,7 +94,7 @@ Included functions:
 			- shape_b, the second shape
 			- position_b (optional), the position of the second shape (default: vec2(0, 0))
 			- rotation_b (optional), the rotation of the second shape (default: 0)
-			- operation (optional), the boolean operation to perform: "and", "or", "not" (default: "not")
+			- operation (optional), the boolean operation to perform: "and", "or", "not", "xor", "split" (default: "not")
 			- make_convex (optional), whether to split the result into convex polygons (default: false)
 			- get_most_relevant (optional), whether to return only the most relevant polygon (default: false)
 		OUTPUTS:
@@ -1239,6 +1239,80 @@ end
 
 
 local function shape_boolean(args)
+    if args.operation == "xor" then
+        local args_a = args
+		args_a.operation = "not"
+        local args_b = {
+            shape_a = args.shape_b,
+            position_a = args.position_b,
+            rotation_a = args.rotation_b,
+            shape_b = args.shape_a,
+            position_b = args.position_a,
+            rotation_b = args.rotation_a,
+            operation = "not",
+            make_convex = args.make_convex,
+            get_most_relevant = args.get_most_relevant
+        }
+        local result_a = shape_boolean(args_a)
+        local result_b = shape_boolean(args_b)
+
+        if not result_a or not result_b then
+            return nil
+        end
+        
+        -- Create a new result table
+        local combined_results = {}
+        
+        -- Add result_a items if it's a table
+        if type(result_a) == "table" then
+            for _, item in ipairs(result_a) do
+                table.insert(combined_results, item)
+            end
+        end
+        
+        -- Add result_b items if it's a table
+        if type(result_b) == "table" then
+            for _, item in ipairs(result_b) do
+                table.insert(combined_results, item)
+            end
+        end
+        
+        return #combined_results > 0 and combined_results or nil
+    end
+
+	if args.operation == "split" then
+		local args_a = args
+		args_a.operation = "not"
+		local args_b = args
+		args_b.operation = "and"
+
+		local result_a = shape_boolean(args_a)
+		local result_b = shape_boolean(args_b)
+		
+		if not result_a or not result_b then
+			return nil
+		end
+
+		-- Create a new result table
+		local combined_results = {}
+
+		-- Add result_a items if it's a table
+		if type(result_a) == "table" then
+			for _, item in ipairs(result_a) do
+				table.insert(combined_results, item)
+			end
+		end
+
+		-- Add result_b items if it's a table
+		if type(result_b) == "table" then
+			for _, item in ipairs(result_b) do
+				table.insert(combined_results, item)
+			end
+		end
+
+		return #combined_results > 0 and combined_results or nil
+	end
+
 	local shape_a = args.shape_a
 	local position_a = args.position_a
 	local rotation_a = args.rotation_a
