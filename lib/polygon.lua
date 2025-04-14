@@ -1300,10 +1300,28 @@ local function shape_boolean(args)
     end
 
 	if args.operation == "split" then
-		local args_a = args
-		args_a.operation = "not"
-		local args_b = args
-		args_b.operation = "and"
+		local args_a = {
+			shape_a = args.shape_a,
+			position_a = args.position_a,
+			rotation_a = args.rotation_a,
+			shape_b = args.shape_b,
+			position_b = args.position_b,
+			rotation_b = args.rotation_b,
+			operation = "not",
+			make_convex = args.make_convex,
+			get_most_relevant = args.get_most_relevant
+		}
+		local args_b = {
+			shape_a = args.shape_a,
+			position_a = args.position_a,
+			rotation_a = args.rotation_a,
+			shape_b = args.shape_b,
+			position_b = args.position_b,
+			rotation_b = args.rotation_b,
+			operation = "and",
+			make_convex = args.make_convex,
+			get_most_relevant = args.get_most_relevant
+		}
 
 		local result_a = shape_boolean(args_a)
 		local result_b = shape_boolean(args_b)
