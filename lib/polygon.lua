@@ -126,6 +126,12 @@ Included functions:
 		OUTPUTS:
 		- shape, the shape centered around the origin
 		- vec2, the translation that was applied to center the shape
+
+	["merge_nearby_points"]: Merges points that are close enough to cause glitches (<0.02 distance)
+		INPUTS:
+		- points, the points to be merged
+		OUTPUTS:
+		- points, the points merged together
 --]]
 
 local rotate = require("@interrobang/iblib/lib/rotate_vector.lua")
@@ -1514,6 +1520,41 @@ local function center_shape(shape)
 	return shape, vec2(0, 0)
 end
 
+-- testing shows that points <0.02 units apart (in x or y) glitch
+local function merge_nearby_points(points)
+	local merged_points = {}
+	local threshold = 0.02
+	
+	if #points == 0 then
+		return merged_points
+	end
+
+	local function points_too_close(p1, p2)
+		return (math.abs(p1.x - p2.x) <= threshold) and (math.abs(p1.y - p2.y) <= threshold)
+	end
+
+	-- Check if first and last points should be merged
+	if #points > 1 and points_too_close(points[1], points[#points]) then
+		-- Skip last point since it will be merged with first
+		for i = 1, #points-1 do 
+			local point = points[i]
+			if #merged_points == 0 or not points_too_close(point, merged_points[#merged_points]) then
+				table.insert(merged_points, point)
+			end
+		end
+	else
+		-- Process all points normally
+		for i = 1, #points do
+			local point = points[i]
+			if #merged_points == 0 or not points_too_close(point, merged_points[#merged_points]) then
+				table.insert(merged_points, point)
+			end
+		end
+	end
+
+	return merged_points
+end
+
 return {
 	polygon_boolean = polygon_boolean,
 
@@ -1536,4 +1577,5 @@ return {
 	get_bounding_box = get_bounding_box,
 	center_points = center_points,
 	center_shape = center_shape,
+	merge_nearby_points = merge_nearby_points,
 }
