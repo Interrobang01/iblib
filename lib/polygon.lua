@@ -145,6 +145,7 @@ Included functions:
 	["find_intersections_of_points"]: Finds the line segments in points that intersect
 		INPUTS:
 		- points, the points to check for intersections
+		- boolean, whether to stop at the first intersection (for performance)
 		OUTPUTS:
 		- table, a table of tables containing the start and end points of the intersecting line segments (start1, end1, start2, end2)
 --]]
