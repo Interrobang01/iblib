@@ -132,6 +132,21 @@ Included functions:
 		- points, the points to be merged
 		OUTPUTS:
 		- points, the points merged together
+
+	["do_point_lines_intersect"]: Checks if two lines intersect
+		INPUTS:
+		- vec2, the first point of the first line
+		- vec2, the second point of the first line
+		- vec2, the first point of the second line
+		- vec2, the second point of the second line
+		OUTPUTS:
+		- boolean, true if the lines intersect, false otherwise
+
+	["find_intersections_of_points"]: Finds the line segments in points that intersect
+		INPUTS:
+		- points, the points to check for intersections
+		OUTPUTS:
+		- table, a table of tables containing the start and end points of the intersecting line segments (start1, end1, start2, end2)
 --]]
 
 local rotate = require("@interrobang/iblib/lib/rotate_vector.lua")
@@ -1555,6 +1570,60 @@ local function merge_nearby_points(points)
 	return merged_points
 end
 
+local function do_point_lines_intersect(a1, a2, b1, b2)
+	local denominator = ((b2.y - b1.y) * (a2.x - a1.x)) - ((b2.x - b1.x) * (a2.y - a1.y))
+	if denominator == 0 then
+		return false -- lines are parallel
+	end
+
+	local ua = (((b2.x - b1.x) * (a1.y - b1.y)) - ((b2.y - b1.y) * (a1.x - b1.x))) / denominator
+	local ub = (((a2.x - a1.x) * (a1.y - b1.y)) - ((a2.y - a1.y) * (a1.x - b1.x))) / denominator
+
+	return ua > 0 and ua < 1 and ub > 0 and ub < 1
+end
+
+local function find_intersections_of_points(points, check_one)
+	-- Brute force check with O(n^2) complexity because I don't want to code sweep line algorithm
+	-- Check every line segment against every other line segment except for adjacent line segments
+	
+	print("just checking, ", do_point_lines_intersect(vec2(-1, 0), vec2(1, 0), vec2(0, -1), vec2(0, 1)))
+
+	if #points <= 3 then
+		return {} -- No intersections possible with less than 3 points
+	end
+
+	local function wrap(i)
+		return (i - 1) % #points + 1 -- 1-indexing moment
+	end
+	
+	local intersections = {}
+	for i = 1, #points do
+		local a1 = points[i]
+		local a2 = points[wrap(i + 1)] -- Wrap around to the first point
+
+		local search_shortening = math.floor((i - 1)/2) -- we don't need to check the same pair twice
+
+		print("Checking segment: ", a1, a2)
+		local offset = 1
+		local edges_to_check = #points - 3 - search_shortening
+		print("Edges to check: ", edges_to_check)
+		for j = 1, edges_to_check do
+			local b1 = points[wrap(i + j + offset)]
+			local b2 = points[wrap(i + j + offset + 1)] -- Wrap around to the first point
+
+			print("Checking intersection between segments: ", a1, a2, b1, b2, " and i and j are ", i, j)
+			if do_point_lines_intersect(a1, a2, b1, b2) then
+				print("Intersection found between segments: ", a1, a2, b1, b2)
+				table.insert(intersections, {a1, a2, b1, b2})
+				if check_one then
+					return intersections -- Return immediately if only one intersection is needed
+				end
+			end
+		end
+	end
+	return intersections
+end
+
 return {
 	polygon_boolean = polygon_boolean,
 
@@ -1578,4 +1647,6 @@ return {
 	center_points = center_points,
 	center_shape = center_shape,
 	merge_nearby_points = merge_nearby_points,
+	do_point_lines_intersect = do_point_lines_intersect,
+	find_intersections_of_points = find_intersections_of_points,
 }
