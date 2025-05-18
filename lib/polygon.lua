@@ -127,7 +127,7 @@ Included functions:
 		- shape, the shape centered around the origin
 		- vec2, the translation that was applied to center the shape
 
-	["merge_nearby_points"]: Merges points that are close enough to cause glitches (<0.02 distance)
+	["merge_nearby_points"]: Merges points that are close enough to cause glitches (<0.03 distance)
 		INPUTS:
 		- points, the points to be merged
 		OUTPUTS:
@@ -1536,10 +1536,10 @@ local function center_shape(shape)
 	return shape, vec2(0, 0)
 end
 
--- testing shows that points <0.02 units apart (in x or y) glitch
+-- testing shows that points <0.03 units apart (in x or y) glitch
 local function merge_nearby_points(points)
 	local merged_points = {}
-	local threshold = 0.02
+	local threshold = 0.03 -- testing shows 0.02 is the threshold but i think this is closer to correct
 	
 	if #points == 0 then
 		return merged_points
